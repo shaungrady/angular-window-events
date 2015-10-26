@@ -1,0 +1,29 @@
+{
+  "name": "angular-window-events",
+  "version": "1.0.0",
+  "homepage": "https://github.com/shaungrady/angular-window-events",
+  "authors": [
+    "Shaun Grady <grady@shaungrady.com>"
+  ],
+  "description": "Window event broadcasting for Angular apps",
+  "main": "./release/angular-window-events.js",
+  "keywords": [
+    "angular",
+    "window",
+    "blur",
+    "focus",
+    "hide",
+    "show",
+    "event",
+    "broadcast"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src",
+    "test",
+    "tests"
+  ]
+}
