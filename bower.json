@@ -1,20 +1,28 @@
 {
   "name": "angular-window-events",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/shaungrady/angular-window-events",
   "authors": [
-    "shaungrady"
+    "Shaun Grady <grady@shaungrady.com>"
   ],
-  "description": "An AngularJS module for adding $broadcasts of window blur, focus, hide, and show events",
-  "main": "window_event_broadcasts.js",
+  "description": "Window event broadcasting for Angular apps",
+  "main": "./release/angular-window-events.js",
   "keywords": [
-    "angularjs"
+    "angular",
+    "window",
+    "blur",
+    "focus",
+    "hide",
+    "show",
+    "event",
+    "broadcast"
   ],
   "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "src",
     "test",
     "tests"
   ]
