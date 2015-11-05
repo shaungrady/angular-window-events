@@ -31,9 +31,9 @@ The event names broadcast by this module are as follows:
 * `windowHide`*
 * `windowShow`*
 
-For details on what triggers `windowHide` and `windowShow`, read the W3C *Page Visibility* spec: http://www.w3.org/TR/page-visibility/
+For details on what triggers `windowHide` and `windowShow`, read the [W3C *Page Visibility* spec](http://www.w3.org/TR/page-visibility/#sec-page-visibility).
 
-\* *Compatibility: Internet Explorer 10+, Firefox 10+, Chrome 14+, Safari 6.1+, Opera 12.1+, iOS Safari 7+, Android 4.4+. For more details visit* http://caniuse.com/#feat=pagevisibility
+\* *Compatibility: Internet Explorer 10+, Firefox 10+, Chrome 14+, Safari 6.1+, Opera 12.1+, iOS Safari 7+, Android 4.4+. For more details visit http://caniuse.com/#feat=pagevisibility*
 
 #### Example
 ```javascript
