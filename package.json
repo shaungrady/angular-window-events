@@ -34,7 +34,7 @@
     "browserify": "^13.0.0",
     "derequire": "^2.0.3",
     "exposify": "^0.5.0",
-    "standard": "^6.0.6",
+    "standard": "^6.0.8",
     "uglify-js": "^2.5.0"
   },
   "peerDependencies": {
