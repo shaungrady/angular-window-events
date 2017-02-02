@@ -6,7 +6,10 @@
   "license": "MIT",
   "homepage": "https://github.com/shaungrady/angular-window-events#readme",
   "main": "./src",
-  "scripts": {},
+  "scripts": {
+    "bundle": "webpack --config config/webpack.config.js && npm run bundle-umd",
+    "bundle-umd": "webpack --config config/webpack.config.browser.js && webpack --config config/webpack.config.browser-min.js"
+  },
   "keywords": [
     "Angular",
     "window",
@@ -32,17 +35,22 @@
     "karma": "^1.4.1",
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
-    "karma-ng-html2js-preprocessor": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.2",
     "webpack": "^2.2"
   },
   "files": [
-    "src/*.js"
+    "lib/*.js",
+    "release/angular-window-events.js"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shaungrady/angular-window-events.git"
+  },
+  "dependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-latest": "^6.22.0"
   }
 }
