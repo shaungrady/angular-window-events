@@ -30,7 +30,7 @@
     "broadcast"
   ],
   "devDependencies": {
-    "angular": "~1.4.0",
+    "angular": "^1.x",
     "browserify": "^11.2.0",
     "derequire": "^2.0.3",
     "exposify": "^0.5.0",
@@ -38,7 +38,7 @@
     "uglify-js": "^2.5.0"
   },
   "peerDependencies": {
-    "angular": ">=1.0 <1.5"
+    "angular": "^1.x"
   },
   "files": [
     "src/*.js"
