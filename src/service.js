@@ -4,20 +4,18 @@ export default windowStateService
 
 windowStateService.$inject = ['$rootScope', '$window']
 function windowStateService ($rootScope, $window) {
-  const api = {}
   const supportedEvents = ['focus', 'blur', 'show', 'hide']
 
   const win = angular.element($window)
   const doc = win[0].document
 
   const handlersByEvent = {}
+  let hasVisibilitySupport = false
+  let isVisible
+  let isFocused = doc.hasFocus()
   let hiddenProperty
   let vendorPrefix
   let prevEvent
-
-  api.hasVisibilitySupport = false
-  api.isFocused = doc.hasFocus()
-  api.isBlurred = !api.isFocused
 
   supportedEvents.forEach(eventType => { handlersByEvent[eventType] = [] })
 
@@ -25,30 +23,29 @@ function windowStateService ($rootScope, $window) {
    * Event Handling
    */
 
-  api.on = function on (eventType, handler) {
+  function on (eventType, handler) {
     if (supportedEvents.indexOf(eventType) === -1) throw new Error('Unsupported window event type')
     handlersByEvent[eventType].push(handler)
-    return api
+    return off.bind({}, eventType, handler)
   }
 
-  api.off = function on (eventType, handler) {
+  function off (eventType, handler) {
     if (supportedEvents.indexOf(eventType) === -1) throw new Error('Unsupported window event type')
-    var handlers = handlersByEvent[eventType]
+    const handlers = handlersByEvent[eventType]
     // Remove all handlers
     if (!handler) handlersByEvent[eventType] = []
     // Remove specific handler
     else {
-      var handlerIndex = handlers.indexOf(handler)
+      const handlerIndex = handlers.indexOf(handler)
       if (handlerIndex > -1) handlers.splice(handlerIndex, 1)
     }
-    return api
   }
 
   function trigger (eventType, event) {
     const eventName = 'window' + eventType[0].toUpperCase() + eventType.substr(1)
     const handlers = handlersByEvent[eventType]
     $rootScope.$broadcast(eventName, event, eventType)
-    handlers.forEach(handler => handler.call(api, event, eventType))
+    handlers.forEach(handler => handler.call({}, event, eventType))
   }
 
   /**
@@ -68,7 +65,7 @@ function windowStateService ($rootScope, $window) {
 
   // Support for Page Visibility API?
   if (hiddenProperty) {
-    api.hasVisibilitySupport = true
+    hasVisibilitySupport = true
     updatePageVisibility()
     doc.addEventListener(vendorPrefix + 'visibilitychange', updatePageVisibility)
   }
@@ -76,8 +73,7 @@ function windowStateService ($rootScope, $window) {
   function updatePageVisibility (event) {
     const isHidden = doc[hiddenProperty]
     const eventType = isHidden ? 'hide' : 'show'
-    api.isHidden = eventType === 'hide'
-    api.isVisible = eventType === 'show'
+    isVisible = eventType === 'show'
     trigger(eventType, event)
   }
 
@@ -91,11 +87,18 @@ function windowStateService ($rootScope, $window) {
     win.on(eventType, event => {
       if (prevEvent === eventType) return
       prevEvent = eventType
-      api.isBlurred = eventType === 'blur'
-      api.isFocused = eventType === 'focus'
+      isFocused = eventType === 'focus'
       trigger(eventType, event)
     })
   })
 
-  return api
+  return Object.freeze({
+    get hasVisibilitySupport () { return hasVisibilitySupport },
+    get isVisible () { return isVisible },
+    get isHidden () { return !isVisible },
+    get isFocused () { return isFocused },
+    get isBlurred () { return !isFocused },
+    on,
+    off
+  })
 }
