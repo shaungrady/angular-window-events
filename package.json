@@ -4,11 +4,13 @@
   "description": "Window event handling for Angular apps",
   "author": "Shaun Grady",
   "license": "MIT",
-  "homepage": "https://github.com/shaungrady/angular-window-events#readme",
+  "homepage": "https://github.com/shaungrady/angular-window-events",
   "main": "./src",
   "scripts": {
     "bundle": "webpack --config config/webpack.config.js && npm run bundle-umd",
-    "bundle-umd": "webpack --config config/webpack.config.browser.js && webpack --config config/webpack.config.browser-min.js"
+    "bundle-umd": "webpack --config config/webpack.config.browser.js && webpack --config config/webpack.config.browser-min.js",
+    "test": "karma start ./config/karma.conf.js && eslint .",
+    "test-start": "karma start --no-single-run ./config/karma.conf.js"
   },
   "keywords": [
     "Angular",
@@ -38,6 +40,7 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.2",
+    "simulant": "^0.2.2",
     "webpack": "^2.2"
   },
   "files": [

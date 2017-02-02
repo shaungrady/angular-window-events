@@ -14,8 +14,8 @@ function windowStateService ($rootScope, $window) {
   let isVisible
   let isFocused = doc.hasFocus()
   let hiddenProperty
-  let vendorPrefix
-  let prevEvent
+  let vendorPrefix = ''
+  let previousEvent
 
   supportedEvents.forEach(eventType => { handlersByEvent[eventType] = [] })
 
@@ -74,7 +74,7 @@ function windowStateService ($rootScope, $window) {
     const isHidden = doc[hiddenProperty]
     const eventType = isHidden ? 'hide' : 'show'
     isVisible = eventType === 'show'
-    trigger(eventType, event)
+    if (event) trigger(eventType, event)
   }
 
   /**
@@ -85,8 +85,8 @@ function windowStateService ($rootScope, $window) {
     // We'll let jQuery/jqLite handle cross-browser compatibility with window blur/focus
     // We have to track previous event to prevent event double-firing
     win.on(eventType, event => {
-      if (prevEvent === eventType) return
-      prevEvent = eventType
+      if (previousEvent === eventType) return
+      previousEvent = eventType
       isFocused = eventType === 'focus'
       trigger(eventType, event)
     })
