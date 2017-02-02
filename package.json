@@ -31,10 +31,10 @@
   ],
   "devDependencies": {
     "angular": "^1.x",
-    "browserify": "^11.2.0",
+    "browserify": "^13.0.0",
     "derequire": "^2.0.3",
     "exposify": "^0.5.0",
-    "standard": "^5.3.1",
+    "standard": "^6.0.6",
     "uglify-js": "^2.5.0"
   },
   "peerDependencies": {
