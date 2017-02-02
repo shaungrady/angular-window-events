@@ -20,7 +20,7 @@ describe('window-events', function () {
 
   it('should have default properties', function () {
     expect(windowState.hasVisibilitySupport).toBe(true)
-    expect(windowState.isVisible).toBe(true)
+    expect(windowState.isShowing).toBe(true)
     expect(windowState.isHidden).toBe(false)
     expect(windowState.isFocused).toBe(false)
     expect(windowState.isBlurred).toBe(true)

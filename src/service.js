@@ -11,7 +11,7 @@ function windowStateService ($rootScope, $window) {
 
   const handlersByEvent = {}
   let hasVisibilitySupport = false
-  let isVisible
+  let isShowing
   let isFocused = doc.hasFocus()
   let hiddenProperty
   let vendorPrefix = ''
@@ -73,7 +73,7 @@ function windowStateService ($rootScope, $window) {
   function updatePageVisibility (event) {
     const isHidden = doc[hiddenProperty]
     const eventType = isHidden ? 'hide' : 'show'
-    isVisible = eventType === 'show'
+    isShowing = eventType === 'show'
     if (event) trigger(eventType, event)
   }
 
@@ -94,8 +94,8 @@ function windowStateService ($rootScope, $window) {
 
   return Object.freeze({
     get hasVisibilitySupport () { return hasVisibilitySupport },
-    get isVisible () { return isVisible },
-    get isHidden () { return !isVisible },
+    get isShowing () { return isShowing },
+    get isHidden () { return !isShowing },
     get isFocused () { return isFocused },
     get isBlurred () { return !isFocused },
     on,
