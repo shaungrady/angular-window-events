@@ -1,49 +1,88 @@
-angular-window-events 
+angular-window-events
 =====================
 [![GitHub version](https://badge.fury.io/gh/shaungrady%2Fangular-window-events.svg)](https://badge.fury.io/gh/shaungrady%2Fangular-window-events)
 [![npm version](https://badge.fury.io/js/angular-window-events.svg)](https://badge.fury.io/js/angular-window-events)
 [![Bower version](https://badge.fury.io/bo/angular-window-events.svg)](https://badge.fury.io/bo/angular-window-events)
+[![Build Status](https://travis-ci.org/shaungrady/angular-window-events.svg?branch=master)](https://travis-ci.org/shaungrady/angular-window-events)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
-An AngularJS module to add $broadcasts of window blur, focus, hide, and show events.
+Easy window event handling! Support `focus`, `blur`, `show`, and `hide`.
 
-## Usage
-### Requirements
-* **AngularJS v1.0.0+**
-	* **1.2.7+** is recommended due to an optimization in `$scope` `$broadcast` propagation.
+- Support for `$broadcast`ing of events.
+- A `windowState` service for tracking state and adding event handlers.
+- Support for `show` and `hide` for browsers that support the [W3C *Page Visibility* spec](http://www.w3.org/TR/page-visibility/#sec-page-visibility).
+- Support for IE9 and up. IE10 if you want `show` and `hide` support.
 
-### Installation
-``` bash
-# use npm
-$ npm install angular-window-events
-# or bower
-$ bower install angular-window-events
-# or grab what you want from /release
+**Usage Example**
+
+``` javascript
+angular
+  .module('myApp', [
+    'window-events'
+  ])
+
+  .controller('MyCtrl', function ($scope, windowState) {
+		if (windowState.isShowing) alert('Hello!')
+
+		var deregisterHide = windowState.on('hide', function (event, eventType) {
+			alert('No, please look at me!')
+		})
+
+		windowState.on('show', function (event, eventType) {
+			alert('Oh, you left? I had not noticed.')
+			deregisterHide()
+		})
+
+		$scope.$on('windowBlur', function (event, eventType) {
+			alert('Pay attention; I need your focus.')
+		})
+  })
 ```
 
-### Event Listening
-Window events are broadcast from the `$rootScope` with the browser event passed as an argument. To listen for an event, follow AngularJS' documentation for the `$on` method of `$scope` here: http://docs.angularjs.org/api/ng.$rootScope.Scope#methods_$on
+## Quick Guide
 
-#### Events
-The event names broadcast by this module are as follows:
+### Installation
+
+``` bash
+$ npm install angular-window-events
+```
+
+Or download from [master/release](https://github.com/shaungrady/angular-window-events/tree/master/release)
+
+### Event Handling
+
+You can either use the `windowState` service or the `$scope.$on` method to
+attach event handlers. When using `$scope.$on`, the window events are broadcast
+under the following names:
+
 * `windowBlur`
 * `windowFocus`
-* `windowHide`*
-* `windowShow`*
+* `windowHide`
+* `windowShow`
 
-For details on what triggers `windowHide` and `windowShow`, read the [W3C *Page Visibility* spec](http://www.w3.org/TR/page-visibility/#sec-page-visibility).
+### windowState Service
 
-\* *Compatibility: Internet Explorer 10+, Firefox 10+, Chrome 14+, Safari 6.1+, Opera 12.1+, iOS Safari 7+, Android 4.4+. For more details visit http://caniuse.com/#feat=pagevisibility*
+#### Properties
 
-#### Example
-```javascript
-angular
-	.module('myApp', ['window-events'])
-	.controller('myCtrl', ['$scope', function($scope) {
+``` javascript
+windowState.hasVisibilitySupport // => boolean
+windowState.isShowing // => boolean
+windowState.isHidden // => boolean
+windowState.isFocused // => boolean
+windowState.isBlurred // => boolean
+```
 
-	  $scope.$on('windowFocus', function(broadcastEvent, browserEvent) {
-	    // Something useful, like refreshing stale data, perhaps?
-	  })
+#### Methods
+``` javascript
+function eventHandler (event, eventType) { /* Do things! */ }
 
-	}])
+windowState.on(eventType, eventHandler)
+// => Deregistration function. Calling it is the same as:
+windowState.off(eventType, eventHandler)
+
+// eventType can be one of:
+// - blur
+// - focus
+// - hide
+// - show
 ```
