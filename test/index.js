@@ -6,10 +6,12 @@ describe('window-events', function () {
   'use strict'
 
   var windowState
+  var $rootScope
 
   beforeEach(angular.mock.module('window-events'))
-  beforeEach(inject(function (_windowState_) {
+  beforeEach(inject(function (_windowState_, _$rootScope_) {
     windowState = _windowState_
+    $rootScope = _$rootScope_
   }))
 
   it('should exist', function () {
@@ -64,6 +66,12 @@ describe('window-events', function () {
       simulant.fire(window, 'blur')
       expect(windowState.isFocused).toBe(false)
       expect(windowState.isBlurred).toBe(true)
+    })
+
+    it('should broadcast events', function () {
+      $rootScope.$on('windowFocus', foo.bar)
+      simulant.fire(window, 'focus')
+      expect(foo.bar).toHaveBeenCalled()
     })
   })
 })
