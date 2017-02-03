@@ -22,20 +22,20 @@ angular
   ])
 
   .controller('MyCtrl', function ($scope, windowState) {
-		if (windowState.isShowing) alert('Hello!')
+    if (windowState.isShowing) alert('Hello!')
 
-		var deregisterHide = windowState.on('hide', function (event, eventType) {
-			alert('No, please look at me!')
-		})
+    var deregisterHide = windowState.on('hide', function (event, eventType) {
+      alert('No, please look at me!')
+    })
 
-		windowState.on('show', function (event, eventType) {
-			alert('Oh, you left? I had not noticed.')
-			deregisterHide()
-		})
+    windowState.on('show', function (event, eventType) {
+      alert('Oh, you left? I had not noticed.')
+      deregisterHide()
+    })
 
-		$scope.$on('windowBlur', function (event, eventType) {
-			alert('Pay attention; I need your focus.')
-		})
+    $scope.$on('windowBlur', function (event, eventType) {
+      alert('Pay attention; I need your focus.')
+    })
   })
 ```
 
@@ -60,6 +60,13 @@ under the following names:
 * `windowHide`
 * `windowShow`
 
+``` javascript
+$scope.$on('windowHide', function (event, eventType) {
+  // Do things
+})
+```
+
+
 ### windowState Service
 
 #### Properties
@@ -77,7 +84,7 @@ windowState.isBlurred // => boolean
 function eventHandler (event, eventType) { /* Do things! */ }
 
 windowState.on(eventType, eventHandler)
-// => Deregistration function. Calling it is the same as:
+// Returns deregistration function. Calling it is the same as...
 windowState.off(eventType, eventHandler)
 
 // eventType can be one of:
