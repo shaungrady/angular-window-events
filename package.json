@@ -10,7 +10,9 @@
     "bundle": "webpack --config config/webpack.config.js && npm run bundle-umd",
     "bundle-umd": "webpack --config config/webpack.config.browser.js && webpack --config config/webpack.config.browser-min.js",
     "test": "karma start ./config/karma.conf.js && eslint .",
-    "test-start": "karma start --no-single-run ./config/karma.conf.js"
+    "test-start": "karma start --no-single-run ./config/karma.conf.js",
+    "preversion": "npm run test",
+    "version": "rm -rf lib/ release/ && npm run bundle && git add -A lib/ release/"
   },
   "keywords": [
     "Angular",
