@@ -49,11 +49,46 @@ $ npm install angular-window-events
 
 Or download from [master/release](https://github.com/shaungrady/angular-window-events/tree/master/release)
 
+
+
 ### Event Handling
 
-You can either use the `windowState` service or the `$scope.$on` method to
-attach event handlers. When using `$scope.$on`, the window events are broadcast
-under the following names:
+#### windowState Service
+
+##### Methods
+``` javascript
+.controller('myCtrl', function (windowState) {
+  function eventHandler (event, eventType) {
+    // Do things
+  }
+
+  windowState.on(eventType, eventHandler)
+  // Returns deregistration function. Calling it is the same as...
+  windowState.off(eventType, eventHandler)
+
+  // eventType can be one of:
+  // - blur
+  // - focus
+  // - hide
+  // - show
+})
+```
+
+##### Properties
+
+``` javascript
+windowState.hasVisibilitySupport // => boolean
+windowState.isShowing // => boolean
+windowState.isHidden // => boolean
+windowState.isFocused // => boolean
+windowState.isBlurred // => boolean
+```
+
+
+#### $scope.$on
+
+You can also use the `$scope.$on` method to attach event handlers. When using
+`$scope.$on`, the window events are broadcast under the following names:
 
 * `windowBlur`
 * `windowFocus`
@@ -64,32 +99,4 @@ under the following names:
 $scope.$on('windowHide', function (event, eventType) {
   // Do things
 })
-```
-
-
-### windowState Service
-
-#### Properties
-
-``` javascript
-windowState.hasVisibilitySupport // => boolean
-windowState.isShowing // => boolean
-windowState.isHidden // => boolean
-windowState.isFocused // => boolean
-windowState.isBlurred // => boolean
-```
-
-#### Methods
-``` javascript
-function eventHandler (event, eventType) { /* Do things! */ }
-
-windowState.on(eventType, eventHandler)
-// Returns deregistration function. Calling it is the same as...
-windowState.off(eventType, eventHandler)
-
-// eventType can be one of:
-// - blur
-// - focus
-// - hide
-// - show
 ```
