@@ -6,6 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/shaungrady/angular-window-events",
   "main": "./lib",
+  "module": "./src",
   "scripts": {
     "bundle": "webpack --config config/webpack.config.js && npm run bundle-umd",
     "bundle-umd": "webpack --config config/webpack.config.browser.js && webpack --config config/webpack.config.browser-min.js",
@@ -50,6 +51,7 @@
     "webpack": "^2.2"
   },
   "files": [
+    "src/*.js",
     "lib/*.js",
     "release/angular-window-events.js"
   ],
