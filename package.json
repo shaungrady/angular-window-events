@@ -1,23 +1,16 @@
 {
   "name": "angular-window-events",
   "version": "1.0.1",
-  "description": "Window event broadcasting for Angular apps",
+  "description": "Window event handling for Angular apps",
+  "author": "Shaun Grady",
+  "license": "MIT",
+  "homepage": "https://github.com/shaungrady/angular-window-events",
   "main": "./src",
   "scripts": {
-    "test": "standard src/index.js",
-    "build": "npm run umd && npm run minify",
-    "umd": "browserify ./src/index.js -s angularWindowEvents -t [ exposify --expose [ --angular angular ] ] -p derequire/plugin > ./release/angular-window-events.js",
-    "minify": "uglifyjs -m -c unused=false -- ./release/angular-window-events.js > ./release/angular-window-events.min.js"
-  },
-  "author": "Shaun Grady",
-  "homepage": "https://github.com/shaungrady/angular-window-events#readme",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shaungrady/angular-window-events.git"
-  },
-  "bugs": {
-    "url": "https://github.com/shaungrady/angular-window-events/issues"
+    "bundle": "webpack --config config/webpack.config.js && npm run bundle-umd",
+    "bundle-umd": "webpack --config config/webpack.config.browser.js && webpack --config config/webpack.config.browser-min.js",
+    "test": "karma start ./config/karma.conf.js && eslint .",
+    "test-start": "karma start --no-single-run ./config/karma.conf.js"
   },
   "keywords": [
     "Angular",
@@ -29,23 +22,38 @@
     "event",
     "broadcast"
   ],
-  "devDependencies": {
-    "angular": "^1.x",
-    "browserify": "^13.0.0",
-    "derequire": "^2.0.3",
-    "exposify": "^0.5.0",
-    "standard": "^6.0.6",
-    "uglify-js": "^2.5.0"
-  },
   "peerDependencies": {
     "angular": "^1.x"
   },
+  "devDependencies": {
+    "angular": "^1.x",
+    "angular-mocks": "^1.x",
+    "eslint": "^3.14.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "istanbul-instrumenter-loader": "^1.2.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.4.1",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.2",
+    "simulant": "^0.2.2",
+    "webpack": "^2.2"
+  },
   "files": [
-    "src/*.js"
+    "lib/*.js",
+    "release/angular-window-events.js"
   ],
-  "standard": {
-    "ignore": [
-      "release/*.js"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaungrady/angular-window-events.git"
+  },
+  "dependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-latest": "^6.22.0"
   }
 }

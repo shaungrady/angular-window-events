@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - '7'
+env:
+  - CXX=g++-4.8
+cache: yarn
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
