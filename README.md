@@ -1,8 +1,6 @@
 angular-window-events
 =====================
-[![GitHub version](https://badge.fury.io/gh/shaungrady%2Fangular-window-events.svg)](https://badge.fury.io/gh/shaungrady%2Fangular-window-events)
 [![npm version](https://badge.fury.io/js/angular-window-events.svg)](https://badge.fury.io/js/angular-window-events)
-[![Bower version](https://badge.fury.io/bo/angular-window-events.svg)](https://badge.fury.io/bo/angular-window-events)
 [![Build Status](https://travis-ci.org/shaungrady/angular-window-events.svg?branch=master)](https://travis-ci.org/shaungrady/angular-window-events)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
