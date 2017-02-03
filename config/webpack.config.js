@@ -12,7 +12,7 @@ module.exports = {
     path: resolve(__dirname, '../lib'),
     filename: 'index.js',
     library: 'window-events',
-    libraryTarget: 'commonjs'
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [{
