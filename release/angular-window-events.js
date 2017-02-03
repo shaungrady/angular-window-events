@@ -1,5 +1,5 @@
 /**
- * angular-window-events v1.1.3
+ * angular-window-events v1.1.4
  * Shaun Grady, 2017
  * https://github.com/shaungrady/angular-window-events
  * Module Format: Universal Module Definition
