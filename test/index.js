@@ -34,11 +34,13 @@ describe('window-events', function () {
       spyOn(foo, 'bar')
     })
 
-    it('"on" method should return an "off" function', function () {
-      var off = windowState.on('hide', foo.bar)
+    it('should return an "off" function', function () {
+      var off = windowState.on('show', foo.bar)
+      simulant.fire(document, 'visibilitychange')
       off()
-      simulant.fire(window, 'visibilitychange')
-      expect(foo.bar).toHaveBeenCalledTimes(0)
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(1)
+    })
     })
 
     it('should support focus events', function () {
