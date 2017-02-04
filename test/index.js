@@ -34,13 +34,32 @@ describe('window-events', function () {
       spyOn(foo, 'bar')
     })
 
-    it('should return an "off" function', function () {
-      var off = windowState.on('show', foo.bar)
-      simulant.fire(document, 'visibilitychange')
-      off()
+    it('should work', function () {
+      windowState.on('show', foo.bar)
       simulant.fire(document, 'visibilitychange')
       expect(foo.bar).toHaveBeenCalledTimes(1)
     })
+
+    it('should return an "off" function', function () {
+      var off = windowState.on('show', foo.bar)
+      off()
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
+    })
+
+    it('should support multiple eventTypes', function () {
+      windowState.on('blur focus', foo.bar)
+      simulant.fire(window, 'blur')
+      simulant.fire(window, 'focus')
+      expect(foo.bar).toHaveBeenCalledTimes(2)
+    })
+
+    it('should support multiple eventTypes with a returned "off" function', function () {
+      var off = windowState.on('blur focus', foo.bar)
+      off()
+      simulant.fire(window, 'blur')
+      simulant.fire(window, 'focus')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
     })
 
     it('should support focus events', function () {
