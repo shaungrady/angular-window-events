@@ -1,5 +1,5 @@
 /**
- * angular-window-events v1.1.5
+ * angular-window-events v1.1.6
  * Shaun Grady, 2017
  * https://github.com/shaungrady/angular-window-events
  * Module Format: Universal Module Definition
@@ -167,6 +167,9 @@ function windowStateService($rootScope, $window) {
     handlers.forEach(function (handler) {
       return handler.call({}, event, eventType);
     });
+    try {
+      $rootScope.$apply();
+    } catch (err) {}
   }
 
   /**
