@@ -67,9 +67,9 @@ Or download from [master/release](https://github.com/shaungrady/angular-window-e
   windowState.off('focus')
 
   // Multiple event types can also be passed at once
-  windowState.on('blue focus hide show', eventHandler)
+  windowState.on('blur focus hide show', eventHandler)
   // As with the `off` method
-  windowState.off('blue focus hide show', eventHandler)
+  windowState.off('blur focus hide show', eventHandler)
 })
 ```
 
