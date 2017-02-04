@@ -54,6 +54,7 @@ function windowStateService ($rootScope, $window) {
     const handlers = handlersByEvent[eventType]
     $rootScope.$broadcast(eventName, event, eventType)
     handlers.forEach(handler => handler.call({}, event, eventType))
+    try { $rootScope.$apply() } catch (err) {}
   }
 
   /**
