@@ -24,13 +24,13 @@ function windowStateService ($rootScope, $window) {
    */
 
   function on (eventType, handler) {
-    if (supportedEvents.indexOf(eventType) === -1) throw new Error('Unsupported window event type')
+    if (supportedEvents.indexOf(eventType) === -1) throw new Error(`Unsupported window event type "${eventType}".`)
     handlersByEvent[eventType].push(handler)
     return off.bind({}, eventType, handler)
   }
 
   function off (eventType, handler) {
-    if (supportedEvents.indexOf(eventType) === -1) throw new Error('Unsupported window event type')
+    if (supportedEvents.indexOf(eventType) === -1) throw new Error(`Unsupported window event type "${eventType}".`)
     const handlers = handlersByEvent[eventType]
     // Remove all handlers
     if (!handler) handlersByEvent[eventType] = []
@@ -93,11 +93,13 @@ function windowStateService ($rootScope, $window) {
   })
 
   return Object.freeze({
-    get hasVisibilitySupport () { return hasVisibilitySupport },
+    // Properties
+    hasVisibilitySupport,
     get isShowing () { return isShowing },
     get isHidden () { return !isShowing },
     get isFocused () { return isFocused },
     get isBlurred () { return !isFocused },
+    // Methods
     on,
     off
   })
