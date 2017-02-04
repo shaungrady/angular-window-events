@@ -24,21 +24,29 @@ function windowStateService ($rootScope, $window) {
    */
 
   function on (eventType, handler) {
-    if (supportedEvents.indexOf(eventType) === -1) throw new Error(`Unsupported window event type "${eventType}".`)
-    handlersByEvent[eventType].push(handler)
+    const eventTypes = getEventTypes(eventType)
+    if (!eventTypes.length) throw new Error(`Unsupported window event type "${eventType}".`)
+    eventTypes.forEach(type => handlersByEvent[type].push(handler))
     return off.bind({}, eventType, handler)
   }
 
   function off (eventType, handler) {
-    if (supportedEvents.indexOf(eventType) === -1) throw new Error(`Unsupported window event type "${eventType}".`)
-    const handlers = handlersByEvent[eventType]
-    // Remove all handlers
-    if (!handler) handlersByEvent[eventType] = []
-    // Remove specific handler
-    else {
-      const handlerIndex = handlers.indexOf(handler)
-      if (handlerIndex > -1) handlers.splice(handlerIndex, 1)
-    }
+    const eventTypes = getEventTypes(eventType)
+    if (!eventTypes.length) throw new Error(`Unsupported window event type "${eventType}".`)
+    eventTypes.forEach(type => {
+      if (!handler) handlersByEvent[type] = []
+      else {
+        const handlers = handlersByEvent[type]
+        const handlerIndex = handlers.indexOf(handler)
+        if (handlerIndex > -1) handlers.splice(handlerIndex, 1)
+      }
+    })
+  }
+
+  function getEventTypes (eventType) {
+    return eventType
+      .split(' ')
+      .filter(type => supportedEvents.indexOf(type) > -1)
   }
 
   function trigger (eventType, event) {
