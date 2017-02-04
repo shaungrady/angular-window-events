@@ -34,10 +34,31 @@ describe('window-events', function () {
       spyOn(foo, 'bar')
     })
 
-    it('"on" method should return an "off" function', function () {
-      var off = windowState.on('hide', foo.bar)
+    it('should work', function () {
+      windowState.on('show', foo.bar)
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(1)
+    })
+
+    it('should return an "off" function', function () {
+      var off = windowState.on('show', foo.bar)
       off()
-      simulant.fire(window, 'visibilitychange')
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
+    })
+
+    it('should support multiple eventTypes', function () {
+      windowState.on('blur focus', foo.bar)
+      simulant.fire(window, 'blur')
+      simulant.fire(window, 'focus')
+      expect(foo.bar).toHaveBeenCalledTimes(2)
+    })
+
+    it('should support multiple eventTypes with a returned "off" function', function () {
+      var off = windowState.on('blur focus', foo.bar)
+      off()
+      simulant.fire(window, 'blur')
+      simulant.fire(window, 'focus')
       expect(foo.bar).toHaveBeenCalledTimes(0)
     })
 
@@ -72,6 +93,59 @@ describe('window-events', function () {
       $rootScope.$on('windowFocus', foo.bar)
       simulant.fire(window, 'focus')
       expect(foo.bar).toHaveBeenCalled()
+    })
+  })
+
+  describe('`off` method', function () {
+    var foo
+
+    beforeEach(function () {
+      foo = { bar: function () {}, barfoo: function () {} }
+      spyOn(foo, 'bar')
+      spyOn(foo, 'barfoo')
+    })
+
+    it('should work', function () {
+      windowState.on('show', foo.bar)
+      windowState.off('show', foo.bar)
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
+    })
+
+    it('should support specifying multiple event types', function () {
+      windowState.on('show', foo.bar)
+      windowState.on('blur', foo.bar)
+      windowState.on('focus', foo.bar)
+
+      windowState.off('show blur focus', foo.bar)
+
+      simulant.fire(window, 'blur')
+      simulant.fire(window, 'focus')
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
+    })
+
+    it('should support omitting handler to clear all events of type', function () {
+      windowState.on('show', foo.bar)
+      windowState.on('show', foo.barfoo)
+
+      windowState.off('show')
+
+      simulant.fire(document, 'visibilitychange')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
+      expect(foo.barfoo).toHaveBeenCalledTimes(0)
+    })
+
+    it('should support omitting handler to clear all events of multiple types', function () {
+      windowState.on('show', foo.bar)
+      windowState.on('blur', foo.barfoo)
+
+      windowState.off('show blur')
+
+      simulant.fire(document, 'visibilitychange')
+      simulant.fire(window, 'blur')
+      expect(foo.bar).toHaveBeenCalledTimes(0)
+      expect(foo.barfoo).toHaveBeenCalledTimes(0)
     })
   })
 })
