@@ -60,17 +60,16 @@ Or download from [master/release](https://github.com/shaungrady/angular-window-e
     // Do things
   }
 
-  windowState.on(eventType, eventHandler)
+  windowState.on('focus', eventHandler)
   // Returns deregistration function. Calling it is the same as...
-  windowState.off(eventType, eventHandler)
+  windowState.off('focus', eventHandler)
   // Or, to remove all handlers for an eventType...
-  windowState.off(eventType)
+  windowState.off('focus')
 
-  // eventType can be one of the following strings:
-  // - 'blur'
-  // - 'focus'
-  // - 'hide'
-  // - 'show'
+  // Multiple event types can also be passed at once
+  windowState.on('blue focus hide show', eventHandler)
+  // As with the `off` method
+  windowState.off('blue focus hide show', eventHandler)
 })
 ```
 
