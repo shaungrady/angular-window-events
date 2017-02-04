@@ -1,7 +1,7 @@
 {
   "name": "angular-window-events",
   "version": "1.1.5",
-  "description": "Window event handling for Angular apps",
+  "description": "Angular service for handling and inspecting window state events",
   "author": "Shaun Grady",
   "license": "MIT",
   "homepage": "https://github.com/shaungrady/angular-window-events",
@@ -17,7 +17,9 @@
   },
   "keywords": [
     "Angular",
+    "service",
     "window",
+    "visibility",
     "blur",
     "focus",
     "hide",
