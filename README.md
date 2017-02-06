@@ -11,6 +11,8 @@ Easy window event handling! Support `focus`, `blur`, `show`, and `hide`.
 - Support for `show` and `hide` for browsers that support the [W3C *Page Visibility* spec](http://www.w3.org/TR/page-visibility/#sec-page-visibility).
 - Support for IE9 and up. IE10 if you want `show` and `hide` support.
 
+See it in action: https://shaungrady.com/angular-window-events/
+
 **Usage Example**
 
 ``` javascript
