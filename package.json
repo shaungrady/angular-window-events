@@ -57,7 +57,8 @@
   "files": [
     "src/*.js",
     "lib/*.js",
-    "release/angular-window-events.js"
+    "release/angular-window-events.js",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
