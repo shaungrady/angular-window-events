@@ -1,12 +1,22 @@
 language: node_js
+cache:
+  directories:
+    - $HOME/.npm
 node_js:
-  - '8'
+  - node
 env:
   - CXX=g++-4.8
-cache: yarn
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+
+before_install:
+  - npm config set spin false
+install:
+  - npm install
+script:
+  - npm run bundle
+  - npm run test
