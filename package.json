@@ -52,7 +52,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
     "simulant": "^0.2.2",
-    "webpack": "^3.3"
+    "webpack": "^4.36.0"
   },
   "files": [
     "src/*.js",
